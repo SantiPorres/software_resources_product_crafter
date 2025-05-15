@@ -4,6 +4,7 @@ from resources.application.create_resource import CreateResource, CreateResource
 from resources.domain.exceptions import UrlIsNotValid
 from resources.domain.models import Resource
 from resources.domain.repositories import ResourcesRepository
+from resources.domain.value_objects import ResourceUrl
 
 
 class FakeResourceRepository(ResourcesRepository):
@@ -27,7 +28,7 @@ class TestCreateResource:
         )
         resources = resource_repository.all()
         assert len(resources) == 1
-        assert resources[0].url() == "https://google.com"
+        assert resources[0].url() == ResourceUrl("https://google.com")
 
     def test_raise_exception_when_resource_url_is_not_a_valid_url(self) -> None:
         resource_repository = FakeResourceRepository()
